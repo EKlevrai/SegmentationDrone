@@ -8,7 +8,7 @@
 		client.takeoff(
 			function(){
 				timeStop=new Date().getTime();
-				console.log(timeStop-timeFront);
+				console.log(timeStop-timeStart);
 				this.stop();
 				console.log("STOP");	
 				this.back(0.1);
