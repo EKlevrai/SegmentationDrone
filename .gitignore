@@ -1,0 +1,13 @@
+*.log
+*.yml
+*.types
+*jshintrc
+*.jsdtscope
+*.prefs
+*.container
+*.name
+*.tern-project
+SuperDrone/node_modules/*
+.metadata/*
+
+

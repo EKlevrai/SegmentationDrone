@@ -1,0 +1,18 @@
+<!doctype html>
+<html>
+  <head>
+    <title></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    <p>Welcome to mabite</p>
+    <button id="test">zDSXCFGNHK</button>
+  <script src="/socket.io/socket.io.js"></script>
+  </body>
+    <script  type="text/javascript">
+  var socket = io();
+  document.getElementById("test").onclick=function(){
+  console.log("cafe pas la");
+	socket.emit('goTest');
+};
+  </script>
