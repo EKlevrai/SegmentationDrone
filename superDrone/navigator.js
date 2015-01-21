@@ -36,5 +36,10 @@
 			}
 		);		
 	}
+	var event=function (ev,callback){
+		var pngStream = client.getPngStream();
+		pngStream.on('data',function (x){callback(x.toString());});
+	}
 	module.exports.test = function(data) {return test(data); }
+	module.exports.on = function(ev, callback) {return event(ev,callback); }
 }());

@@ -36,9 +36,13 @@ server.listen(port, function () {
 
 io.on('connection', function (socket) {
 	console.log('yomabite');
+	socket.on('hello', function(data){
+		console.log("hello");
+	});
 	socket.on('goTest',
 		function(){console.log("SUCE");
 		navigator.test({});console.log("mabite");
 	});
+	navigator.on('data',function(x){socket.emit('stream',{stream : x});})
 });
 
