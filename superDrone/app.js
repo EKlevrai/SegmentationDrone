@@ -12,10 +12,9 @@ var navigator=require('./navigator.js');
 var app = express();
 var server = http.createServer(app);
 var io = require('socket.io')(server);
-var port = process.env.PORT || 3001;
+var port = process.env.PORT || 3000;
 
 // all environments
-app.set('port', process.env.PORT || 3001);
 app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
 app.use(express.favicon());
@@ -25,24 +24,27 @@ app.use(express.methodOverride());
 app.use(app.router);
 app.use(express.static(path.join(__dirname, 'public')));
 
-
-
-app.use(routes.index);//redirect sur la page web
-
 server.listen(port, function () {
 	console.log('Server listening at port %d', port);
 	});
 
-
-io.on('connection', function (socket) {
-	console.log('yomabite');
-	socket.on('hello', function(data){
-		console.log("hello");
+io.sockets.on('connection', function (socket) {
+/*	navigator.on('stream',
+				function(d){
+					console.log(d);
+					//socket.emit('stream',d);
 	});
+		console.log('yomabite');
 	socket.on('goTest',
 		function(){console.log("SUCE");
 		navigator.test({});console.log("mabite");
 	});
 	navigator.on('data',function(x){socket.emit('stream',{stream : x});})
+*/
+console.log("hi");
+socket.on('hello', function(data){
+	socket.emit("hello",{});
+});
+
 });
 
