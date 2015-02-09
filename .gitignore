@@ -7,7 +7,7 @@
 *.container
 *.name
 *.tern-project
-SuperDrone/node_modules/*
+node_modules/*
 .metadata/*
 
 
