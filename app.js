@@ -7,14 +7,18 @@ var socketHandler=require('./socketHandler.js');
 var http = require('http');
 var app_drone = http.createServer();
 var express = require("express");
-//var app_video = express();
 app_drone.listen(3000);
-//app_video.listen(2999);
+
+
 //require("dronestream").listen(http.createServer(app_video), { ip: "192.168.1.1" });
 
-console.log('Server running at http://localhost:3000/');
+drone = require("dronestream");
+var server = http.createServer(function(req, res) {
+require("fs").createReadStream(__dirname + "/index.html").pipe(res);
+});
+drone.listen(server);
+server.listen(5555);//,{ ip: "192.168.1.5" });
 
-//app_video.use(function(req, res, next){res.render('index.ejs');});
 
 var io = require('socket.io').listen(app_drone);
 io.sockets.on('connection', function (socket) {
