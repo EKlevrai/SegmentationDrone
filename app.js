@@ -3,33 +3,21 @@
  * Module dependencies.
  */
 
-var navigator=require('./navigator.js');
-var http = require('http')
-var app = http.createServer();
-app.listen(3000);
+var socketHandler=require('./socketHandler.js');
+var http = require('http');
+var app_drone = http.createServer();
+var express = require("express");
+//var app_video = express();
+app_drone.listen(3000);
+//app_video.listen(2999);
+//require("dronestream").listen(http.createServer(app_video), { ip: "192.168.1.1" });
+
 console.log('Server running at http://localhost:3000/');
 
-var io = require('socket.io').listen(app);
+//app_video.use(function(req, res, next){res.render('index.ejs');});
+
+var io = require('socket.io').listen(app_drone);
 io.sockets.on('connection', function (socket) {
-/*	navigator.on('stream',
-				function(d){
-					console.log(d);
-					//socket.emit('stream',d);
-	});
-		console.log('yomabite');
-	socket.on('goTest',
-		function(){console.log("SUCE");
-		navigator.test({});console.log("mabite");
-	});
-	navigator.on('data',function(x){socket.emit('stream',{stream : x});})
-*/
-console.log("hi");
-socket.on('hello', function(data){
-	socket.emit("hello",{});
-});
-navigator.stream(function(data){
-	console.log(data);
-	socket.emit('stream',data);
-})
+	socketHandler.set(socket);
 });
 

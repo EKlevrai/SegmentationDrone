@@ -9,6 +9,7 @@
 	    "express": "3.2.6",
 	    "ejs": "*",
 	    "socket.io":"0.9.16",
-	    "ar-drone":"0.3.0"
+	    "ar-drone":"0.3.0",
+	    "dronestream" : "*"
 	  }
 }
