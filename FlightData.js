@@ -4,7 +4,7 @@
 	/**
 	 * le drone est le client créé par arDrone
 	 */
-	function FlightData(){
+	function FlightData(cl){
 		this.manual=false;
 		this.sequence="STOPPED";//sequence is STOPPED, TAKING_OFF, LANDING, TAKING_OFF_TO_MANUAL,MANUAL
 		this.moving={//list of moving
@@ -13,7 +13,7 @@
 				"alt" : 0,//{1,0,-1} decrit la prise d'altitude ou non
 				"clockwise" : 0//{1,0,-1} decrit la rotation ou non selon le sens horaire
 					};
-		this.client=arDrone.createClient();
+		this.client=cl;
 	}
 	/**
 	 * 
@@ -99,6 +99,6 @@
 		}
 	}
 	
-	module.exports.create = function() {return new FlightData(); }
+	module.exports.create = function(cl) {return new FlightData(cl); }
 	
 }());

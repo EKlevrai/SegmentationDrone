@@ -1,11 +1,14 @@
 	var FlightData = require('./FlightData.js');
 	
 (function() {
-	var flight = FlightData.create();
 	var sckt;
-	var setSocket = function(socket){
-		sckt=socket;
-		// auto/manual mode
+	var flight ;
+	var set = function(socket,client){
+		flight = FlightData.create(client);
+		sckt = socket;
+		//var video = client.getVideoStream();
+		//video.on('data', function(d){sckt.emit("stream",{data : d})});
+
 		sckt.on('switch',function(){
 		flight.switchMode()})
 		;
@@ -15,6 +18,6 @@
 	}
 	var send = function(ev){sckt.emit(ev,{});}
 	
-	module.exports.set = function(s) {setSocket(s);}
+	module.exports.set = function(s,cl) {set(s,cl);}
 	module.exports.send = send
 }());
