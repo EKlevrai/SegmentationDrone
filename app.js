@@ -17,14 +17,18 @@ io.sockets.on('connection', function (socket) {
 
 
 var pngStream = client.getPngStream();
+var video = client.getVideoStream();
 
 var lastPng;
-pngStream
+video.on('data', function(pngBuffer) {
+    lastPng = pngBuffer;
+});
+/*
   .on('error', console.log)
   .on('data', function(pngBuffer) {
     lastPng = pngBuffer;
   });
-
+*/
 var server = http.createServer(function(req, res) {
   if (!lastPng) {
     res.writeHead(503);

@@ -6,9 +6,7 @@
 	var set = function(socket,client){
 		flight = FlightData.create(client);
 		sckt = socket;
-		//var video = client.getVideoStream();
-		//video.on('data', function(d){sckt.emit("stream",{data : d})});
-
+		
 		sckt.on('switch',function(){
 		flight.switchMode()})
 		;
