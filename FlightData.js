@@ -31,6 +31,32 @@
 	/**
 	 * 
 	 */
+	FlightData.prototype.startTakeOffAuto = function(callback){
+		if(!this.manual && this.sequence=="STOPPED"){
+			this.manual=false;
+			this.sequence="TAKING_OFF";
+			var that=this;
+			this.client.takeoff(callback);
+			
+		}
+		else console.log(this.manual + " " + this.sequence);
+	}
+	/**
+	 * 
+	 */
+	
+	FlightData.prototype.scriptTest = function()
+	{
+		this.forward(0.1);
+		while(emergency_hazard == false)
+		{
+			
+		}
+		this.land();
+	}
+	/**
+	 * 
+	 */
 	function startManual(that){
 		console.log("GOJAMES");
 		socketHandler.send("MODE_MANUAL");
@@ -52,14 +78,18 @@
 			if(this.moving=={"clockwise":0,"alt":0,"left":0,"forward":0}){this.client.stop();console.log("STOP");}
 			else{
 				switch(this.moving.clockwise){
-					case 1 : this.client.clockwise(0.5);			break;
-					case -1 : this.client.counterClockwise(0.5);	break;
-					default : this.client.clockwise(0); 			break;
+				//case 1 : this.client.clockwise(0.25);			break;
+				//case -1 : this.client.counterClockwise(0.25);	break;
+				case 2 : this.client.clockwise(0.5);			break;
+				case -2 : this.client.counterClockwise(0.5);	break;
+				default : this.client.stop(); 			break;
 				}
 				switch(this.moving.alt){
-					case 1 : this.client.up(0.5);		break;
-					case -1 : this.client.down(0.25);	break;
-					default : this.client.up(0); 		break;
+				//case 1 : this.client.up(0.25);		break;
+				//case -1 : this.client.down(0.25);	break;
+				case 2 : this.client.up(0.5);		break;
+				case -2 : this.client.down(0.5);	break;
+				default : if(this.moving.clockwise==0)this.client.stop(); 		break;
 				}
 				if(this.moving.forward>0)	this.client.front(0.4*this.moving.forward/100);
 				else 						this.client.back(-0.4*this.moving.forward/100);
@@ -74,11 +104,16 @@
 		if(this.manual){
 			this.manual=false;
 			socketHandler.send("MODE_AUTO");
+			
 			this.sequence="LANDING"
 			this.client.stop();
 			this.client.down(0.2);
 			var that=this;
-			this.client.on('navdata', function(data){if(data.demo.altitudeMeters<0.2)endLand(that);});
+			this.client.on('navdata', function(data){if(data.demo.altitudeMeters<0.4)endLand(that);});
+			
+			/*this.sequence="SCRIPTED";
+			var that = this;
+			this.client.land(that.StartTakeOffAuto(that.scriptTest));*/
 		}
 		else{ 
 			if(this.sequence=="STOPPED")this.startTakeOff();
@@ -88,9 +123,9 @@
 	}
 	var endLand = function(that){
 		that.client.land();
-		that.sequence="STOPPED";
-		
+		that.sequence="STOPPED";		
 	}
+	
 	FlightData.prototype.direction = function(data){
 		if(this.manual){
 			console.log("{"+data.forward+","+data.left+","+data.alt+","+data.clockwise+"}")
