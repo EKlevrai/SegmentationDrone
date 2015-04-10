@@ -10,6 +10,7 @@
 	    "ejs": "*",
 	    "socket.io":"0.9.16",
 	    "ar-drone":"0.3.0",
-	    "dronestream" : "*"
+	    "dronestream" : "*",
+	    "serialport" : "*"
 	  }
 }

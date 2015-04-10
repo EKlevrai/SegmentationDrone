@@ -1,6 +1,7 @@
+(function() {
 	var arDrone = require('ar-drone');
 	var socketHandler = require('./socketHandler.js');
-(function() {
+
 	/**
 	 * le drone est le client créé par arDrone
 	 */
@@ -13,7 +14,7 @@
 				"alt" : 0,//{1,0,-1} decrit la prise d'altitude ou non
 				"clockwise" : 0//{1,0,-1} decrit la rotation ou non selon le sens horaire
 					};
-		this.client=cl;
+		this.client=cl;		
 	}
 	/**
 	 * 
